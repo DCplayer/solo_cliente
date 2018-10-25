@@ -680,7 +680,7 @@ void list_users(int socket_fd, struct sockaddr_in *address) {
 
 void create_user_list(){ 
 
-  struct json_object *action, *userlist, *contentList, *user, *id, *user_name, *user_status;
+  struct json_object *list,  *action, *userlist, *contentList, *user, *id, *user_name, *user_status;
   userlist = json_tokener_parse(&list);
   json_object_object_get_ex(userlist, "action", &action);
   json_object_object_get_ex(userlist, "users", &contentList);
