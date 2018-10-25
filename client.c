@@ -647,7 +647,7 @@ void list_users(int socket_fd, struct sockaddr_in *address) {
 
 }
 
-void create_user_list(){
+void create_user_list(){ ""
 
   const char *list = "[{
                         \"id\": \"1\",
