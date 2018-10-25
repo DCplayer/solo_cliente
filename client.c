@@ -74,7 +74,7 @@ void * receive(void * threadData) {
     }
 }
 
-char *getHandshakeJson(int socket_fd, struct sockaddr_in *address, char *host){
+char getHandshakeJson(int socket_fd, struct sockaddr_in *address, char *host){
   
   char myip = getIP(socket_fd, &address);
 
@@ -134,7 +134,7 @@ char *getHandshakeJson(int socket_fd, struct sockaddr_in *address, char *host){
   // // close(sockfd);
 }
 
-char *getIP(int socket_fd, struct sockaddr_in *address){
+char getIP(int socket_fd, struct sockaddr_in *address){
   struct sockaddr_in name;
   socklen_t namelen = sizeof(name);
   socket_fd = getsockname(socket_fd, (struct sockaddr*) &name, &namelen);
