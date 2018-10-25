@@ -30,7 +30,7 @@ static char actual_json[1000];
 static char * server_address;
 static char server_reply[2000]; 
 
-static struct user user_list[]; 
+static user user_list[10]; 
 
 char servInfoIp[32];
 char servInfoPort[32]; 
