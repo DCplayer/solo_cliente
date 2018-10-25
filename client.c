@@ -628,28 +628,28 @@ void changeStatus(int socket_fd, struct sockaddr_in *address) {
   struct json_object *userStatus = json_object_new_object();
   struct json_object *actionSon = json_object_new_string("CHANGED_STATUS"); 
   struct json_object *userSon = json_object_new_string(user_id);
-  struct json_object *statusSon = json_object_new_string(user_status);
+  // struct json_object *statusSon = json_object_new_string(user_status);
 
-  json_object_object_add(userStatus, "action", actionSon);
-  json_object_object_add(userStatus, "user", userSon);
-  json_object_object_add(userStatus, "status", statusSon);
+  // json_object_object_add(userStatus, "action", actionSon);
+  // json_object_object_add(userStatus, "user", userSon);
+  // json_object_object_add(userStatus, "status", statusSon);
   
-  const char *statusChanged = json_object_to_json_string(userStatus);
-  printf("%s", statusChanged); 
+  // const char *statusChanged = json_object_to_json_string(userStatus);
+  // printf("%s", statusChanged); 
 
-  int envio = write(socket_fd, statusChanged, strlen(statusChanged)); 
-  if (envio < 0){
-    puts("Envio de status Fallido");
-    return NULL; 
-  }
+  // int envio = write(socket_fd, statusChanged, strlen(statusChanged)); 
+  // if (envio < 0){
+  //   puts("Envio de status Fallido");
+  //   return NULL; 
+  // }
 
-  int recibo = read(socket_fd, server_reply, 1000);
-  if (recibo < 0){
-    puts("Respuesta de status del servidor inentendible");
-    return NULL; 
-  }
+  // int recibo = read(socket_fd, server_reply, 1000);
+  // if (recibo < 0){
+  //   puts("Respuesta de status del servidor inentendible");
+  //   return NULL; 
+  // }
 
-  printf("\n%s\n", server_reply); 
+  // printf("\n%s\n", server_reply); 
 
 }
 
