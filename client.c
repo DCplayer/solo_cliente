@@ -83,8 +83,7 @@ void getHandshakeJson(int socket_fd, struct sockaddr_in *address){
 //======================================================= 
   // getIP(socket_fd, &address);
 //=======================================================
-  struct json_object *requestID = json_object_new_object(),
-  *userSon = json_object_new_string(username);
+  struct json_object *requestID = json_object_new_object(); 
 //=======================================================
   // json_object_object_add(requestID, "host", ipSon);
   // json_object_object_add(requestID, "origin", bufferSon);
