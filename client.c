@@ -481,6 +481,7 @@ void * send_message(char prompt[USERNAME_BUFFER+4], int socket_fd, struct sockad
       strcat(final_message, prompt);
       strcat(final_message, message);
       printf("\n%s", prompt);
+      
       if (strncmp(message, "/quit", 5) == 0) {
         printf("Closing connection...\n");
         exit(0);
@@ -675,36 +676,34 @@ void list_users(int socket_fd, struct sockaddr_in *address) {
 
 }
 
-// void create_user_list(){ ""
-
-//   struct json_object *action, *userlist, *contentList, *id, *user_name, *user_status;
-//   userlist = json_tokener_parse(&list);
-//   json_object_object_get_ex(userlist, "action", &action);
-//   json_object_object_get_ex(userlist, "users", &contentList);
-//   const char *list = "[{
-//                         \"id\": \"1\",
-//                         \"name\": \"Emilio\",
-//                         \"status\": \"active\" 
-//                         }, {
-//                         \"id\": \"2\",
-//                         \"name\": \"trump\",
-//                         \"status\": \"busy\"
-//                         }, {
-//                         \"id\": \"3\",
-//                         \"name\": \"someone\",
-//                         \"status\": \"active\"
-//                         }]"; 
-//   struct json_object *action, *userlist, *contentList, *id, *user_name, *user_status;
-//   userlist = json_tokener_parse(&list);
-//   json_object_object_get_ex(userlist, "action", &action);
-//   json_object_object_get_ex(userlist, "users", &contentList);
-
-//   printf("%s\n", json_object_to_json_string(action));
-//   printf("%s\n", json_object_to_json_string(list));
 
 
+void create_user_list(){ 
+
+  struct json_object *action, *userlist, *contentList, *user, *id, *user_name, *user_status;
+  userlist = json_tokener_parse(&list);
+  json_object_object_get_ex(userlist, "action", &action);
+  json_object_object_get_ex(userlist, "users", &contentList);
+
+  char *users_string = json_object_get_string(contentList);
+
+  int user_count = json_object_array_length(contentList);
+  int i; 
+  for (i = 0; i < user_count; ++i){
+    user = json_object_array_get_idx(contentList, i); 
+    json_object_object_get_ex(user, "id", id);
+    json_object_object_get_ex(user, "name", user_name);
+    json_object_object_get_ex(user, "status", user_status);
+
+    char param1, param2, param3; 
+    param1 = json_object_get_string(id); 
+    param2 = json_object_get_string(user_name); 
+    param3 = json_object_get_string(user_status);
+    user new_user = {param1, param2, param3}; 
+
+  }
   
-// }
+}
 
 int main(int argc, char **argv) {
       long port = strtol(argv[2], NULL, 10);
