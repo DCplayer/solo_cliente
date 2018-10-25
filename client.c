@@ -724,17 +724,18 @@ int main(int argc, char **argv) {
     connect_to_server(socket_fd, &address); 
     getHandshakeJson(socket_fd, &address); 
 
+
     // Create data struct for new thread
     thread_data data;
     data.prompt = prompt;
     data.socket = socket_fd;
 
-    printf("\n =============== Menu Principal ===============\n
-      1. Listar Usuarios\n
-      2. Enviar Mensaje\n
-      3. Cambiar Status\n
-      /quit para terminar le chat\n
-      ==============================================");
+    // menu << "=============== Menu Principal ==============="
+    // "1. Listar Usuarios"
+    // "2. Enviar Mensaje"
+    // "3. Cambiar Status"
+    // "/quit para terminar le chat"
+    // "=============================================="
 
     // Create new thread to receive messages
     pthread_create(&thread, NULL, receive, (void *) &data);
