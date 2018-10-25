@@ -620,6 +620,31 @@ void changeStatus(int socket_fd, struct sockaddr_in *address, char status) {
 
 }
 
+void list_users(int socket_fd, struct sockaddr_in *address) {
+  //==============Creacion del JSON==================
+  //Json dentro del cambio de status
+  struct json_object *userStatus = json_object_new_object();
+  struct json_object *actionSon = json_object_new_string("LIST_USER");
+
+  json_object_object_add(userStatus, "action", actionSon);
+  
+  const char *statusChanged = json_object_to_json_string(userStatus);
+  printf("%s", statusChanged); 
+
+  int envio = write(socket_fd, statusChanged, strlen(statusChanged)); 
+  if (envio < 0){
+    puts("Envio de status Fallido");
+    return NULL; 
+  }
+
+  int recibo = read(socket_fd, server_reply, 1000);
+  if (recibo < 0){
+    puts("Respuesta de status del servidor inentendible");
+    return NULL; 
+  }
+
+}
+
 int main(int argc, char **argv) {
       long port = strtol(argv[2], NULL, 10);
     struct sockaddr_in address, cl_addr;
@@ -650,7 +675,7 @@ int main(int argc, char **argv) {
     char status_proto = "inactive"; 
     connect_to_server(socket_fd, &address); 
     getHandshakeJson(socket_fd, &address); 
-    changeStatus(socket_fd, &address, status_proto); 
+    list_users(socket_fd, &address);
 
     // Create data struct for new thread
     thread_data data;
