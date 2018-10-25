@@ -488,8 +488,7 @@ void * send_message(char prompt[USERNAME_BUFFER+4], int socket_fd, struct sockad
       if (strncmp(message, "1", 1) == 0) {
         //Listar usuarios
         printf("Listar Usuarios...\n");
-        list_users();
-        sprintf(final_message, actual_json);  
+        list_users(); 
       }
       if (strncmp(message, "2", 1) == 0) {
         //Enviar Mensaje
