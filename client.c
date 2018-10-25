@@ -178,7 +178,7 @@ int main(int argc, char**argv) {
     socket_fd = socket(AF_INET, SOCK_STREAM, 0);
 
     connect_to_server(socket_fd, &address); 
-    getHandshakeJson(socket_fd, &address, server_address); 
+    getHandshakeJson(socket_fd, &address, &server_address); 
 
     // Create data struct for new thread
     thread_data data;
