@@ -81,7 +81,7 @@ void getHandshakeJson(int socket_fd, struct sockaddr_in *address, char *host){
   getIP(socket_fd, &address);
 
   struct json_object *requestID = json_object_new_object(),
-  *ipSon = json_object_new_string(myip),
+  *ipSon = json_object_new_string(local_IP),
   *bufferSon = json_object_new_string(host),
   *userSon = json_object_new_string(username);
 
@@ -145,6 +145,7 @@ void getIP(int socket_fd, struct sockaddr_in *address){
   const char* p = inet_ntop(AF_INET, &name.sin_addr, buffer, 100);
   sprintf(local_IP, p); 
   puts("\nMy local ip is: %s", local_IP);  
+  return; 
 }
 
 int main(int argc, char**argv) {
