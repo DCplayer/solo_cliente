@@ -662,10 +662,10 @@ void create_user_list(){
                         \"name\": \"someone\",
                         \"status\": \"active\"
                         }]"; 
-  struct json_object *action, *userlist, *id, *user_name, *user_status;
-  userlist = json_tokener_parse(users_json);
+  struct json_object *action, *userlist, *contentList, *id, *user_name, *user_status;
+  userlist = json_tokener_parse(&list);
   json_object_object_get_ex(userlist, "action", &action);
-  json_object_object_get_ex(userlist, "users", &list);
+  json_object_object_get_ex(userlist, "users", &contentList);
 
   printf("%s\n", json_object_to_json_string(action));
   printf("%s\n", json_object_to_json_string(list));
