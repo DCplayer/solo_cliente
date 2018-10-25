@@ -603,25 +603,21 @@ void changeStatus(int socket_fd, struct sockaddr_in *address, char status) {
   
   const char *statusChanged = json_object_to_json_string(userStatus);
   printf("%s", statusChanged); 
-//   //Get my IP
 
+  int envio = write(socket_fd, statusChanged, strlen(statusChanged)); 
+  if (envio < 0){
+    puts("Envio de status Fallido");
+    return NULL; 
+  }
 
-//   //keep communicating with server
-//   //Send some data
-//   if( send(sock , statusChanged , strlen(statusChanged) , 0) < 0)
-//   {
-//       puts("Send failed");
-//   }
-//   //Receive a reply from the server
-//   if( recv(sock , server_reply , 2000 , 0) < 0)
-//   {
-//       puts("recv failed");
-//   }
-//   puts("\n-----------------------------------------------\nServer reply :");
-//   puts(server_reply);
-//   puts("\n-----------------------------------------------");
+  int recibo = read(socket_fd, server_reply, 1000);
+  if (recibo < 0){
+    puts("Respuesta de status del servidor inentendible");
+    return NULL; 
+  }
 
-//   close(sock);
+  printf("\n%s\n", server_reply); 
+
 }
 
 int main(int argc, char **argv) {
