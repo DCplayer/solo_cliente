@@ -468,7 +468,7 @@ void getHandshakeJson(GtkWidget *button, gpointer data){
 
   struct sockaddr_in name;
   socklen_t namelen = sizeof(name);
-  err = getsockname(sock, (struct sockaddr*) &name, &namelen);
+  err = getsockname(((ChatClient *)data)->sock , (struct sockaddr*) &name, &namelen);
 
   char buffer[100];
   const char* p = inet_ntop(AF_INET, &name.sin_addr, buffer, 100);
