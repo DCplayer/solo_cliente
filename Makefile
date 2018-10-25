@@ -13,4 +13,4 @@ client.o : client.c
 
 .PHONY : clean
 clean :
--rm client $(objects)
+	-rm client $(objects)
