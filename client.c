@@ -622,13 +622,13 @@ void getIP(int socket_fd, struct sockaddr_in *address){
   return; 
 }
 
-void changeStatus(int socket_fd, struct sockaddr_in *address, char status) {
+void changeStatus(int socket_fd, struct sockaddr_in *address) {
   //==============Creacion del JSON==================
   //Json dentro del cambio de status
   struct json_object *userStatus = json_object_new_object();
   struct json_object *actionSon = json_object_new_string("CHANGED_STATUS"); 
   struct json_object *userSon = json_object_new_string(user_id);
-  struct json_object *statusSon = json_object_new_string(&status);
+  struct json_object *statusSon = json_object_new_string(user_status);
 
   json_object_object_add(userStatus, "action", actionSon);
   json_object_object_add(userStatus, "user", userSon);
