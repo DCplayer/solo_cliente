@@ -30,7 +30,7 @@ static char actual_json[1000];
 static char * server_address;
 static char server_reply[2000]; 
 
-static user user_list[10]; 
+ 
 
 char servInfoIp[32];
 char servInfoPort[32]; 
@@ -56,6 +56,7 @@ typedef struct {
   char *status;
 } user;
 
+static user user_list[];
 //Information of self
 user my;
 serverInfo servInfo;
