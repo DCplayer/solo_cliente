@@ -23,7 +23,7 @@ typedef struct {
 } thread_data;
 
 static char username[32];
-static char user_id[32];
+static char user_id[100];
 static char user_status[32];
 static char local_IP[100]; 
 static char actual_json[1000];  
