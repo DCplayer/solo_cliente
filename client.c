@@ -72,130 +72,130 @@ void * receive(void * threadData) {
     }
 }
 
-void getHandshakeJson(){
+// void getHandshakeJson(){
   
 
-  int sockfd;
-  char server_reply[2000];
-  ssize_t n;
+//   int sockfd;
+//   char server_reply[2000];
+//   ssize_t n;
 
-  const char* google_dns_server = "8.8.8.8";
-  int dns_port = 53;
+//   const char* google_dns_server = "8.8.8.8";
+//   int dns_port = 53;
 
-  struct sockaddr_in serv;
+//   struct sockaddr_in serv;
 
-  int sock = socket ( AF_INET, SOCK_DGRAM, 0);
+//   int sock = socket ( AF_INET, SOCK_DGRAM, 0);
 
-  //Socket could not be created
-  if(sock < 0)
-  {
-      perror("Socket error");
-  }
+//   //Socket could not be created
+//   if(sock < 0)
+//   {
+//       perror("Socket error");
+//   }
 
-  memset( &serv, 0, sizeof(serv) );
-  serv.sin_family = AF_INET;
-  serv.sin_addr.s_addr = inet_addr( ip );
-  serv.sin_port = htons( port );
+//   memset( &serv, 0, sizeof(serv) );
+//   serv.sin_family = AF_INET;
+//   serv.sin_addr.s_addr = inet_addr( ip );
+//   serv.sin_port = htons( port );
 
-  int err = connect( sock , (const struct sockaddr*) &serv , sizeof(serv) );
+//   int err = connect( sock , (const struct sockaddr*) &serv , sizeof(serv) );
 
   
 
-  //=============================================================
-  int sockfd2;
+//   //=============================================================
+//   int sockfd2;
 
-  struct sockaddr_in servaddr;
+//   struct sockaddr_in servaddr;
 
-  sockfd2 = socket(AF_INET, SOCK_STREAM, 0);
+//   sockfd2 = socket(AF_INET, SOCK_STREAM, 0);
 
-  if (sockfd2 == -1) {
-      perror("could not create socket");
-  }
+//   if (sockfd2 == -1) {
+//       perror("could not create socket");
+//   }
 
-  printf("Created socket\n");
-
-
-  bzero(&servaddr, sizeof(servaddr));
-  servaddr.sin_family = AF_INET;
-  servaddr.sin_addr.s_addr = inet_addr(ip);
-  servaddr.sin_port = htons(portCast);
-
-  connect(sockfd2, (struct sockaddr *)&servaddr, sizeof(servaddr));
+//   printf("Created socket\n");
 
 
-  //=============================================================
+//   bzero(&servaddr, sizeof(servaddr));
+//   servaddr.sin_family = AF_INET;
+//   servaddr.sin_addr.s_addr = inet_addr(ip);
+//   servaddr.sin_port = htons(portCast);
 
-  //Funcion en desarrollo, obtencion de datos del usuario y servidor al que se va a conectar
-
-  struct json_object *requestID = json_object_new_object(),
-  *ipSon = json_object_new_string(ip),
-  *bufferSon = json_object_new_string(buffer),
-  *userSon = json_object_new_string(username);
-
-  json_object_object_add(requestID, "host", ipSon);
-  json_object_object_add(requestID, "origin", bufferSon);
-  json_object_object_add(requestID, "user", userSon);
-  //Get my IP
-
-  puts("asdfasdfasdfasdf");
-  printf("%s\n", json_object_to_json_string(requestID));
-
-  const char *reqStr = json_object_to_json_string(requestID);
-
-  if( write(sockfd2 , reqStr , strlen(reqStr)) < 0)
-  {
-      puts("Send failed");
-  }
-
-  if( read(sockfd2 , server_reply , 1000) < 0)
-  {
-    puts("recv failed");
-  }
-
-  //Receive a reply from the server
-
-  puts("\n-----------------------------------------------\nServer reply :");
-  puts("");
-
-  // printf("%s\n", server_reply);
-
-  struct json_object *status, *userinfo, *replyObj, *id, *user_name, *user_status;
-  replyObj = json_tokener_parse(server_reply);
-  json_object_object_get_ex(replyObj, "status", &status);
-  json_object_object_get_ex(replyObj, "user", &userinfo);
-
-  printf("%s\n", json_object_to_json_string(status));
-  printf("%s\n", json_object_to_json_string(userinfo));
-
-  json_object_object_get_ex(userinfo, "id", &id);
-  json_object_object_get_ex(userinfo, "name", &user_name);
-  json_object_object_get_ex(userinfo, "status", &user_status);
-
-  printf("%s\n", json_object_to_json_string(id));
-  printf("%s\n", json_object_to_json_string(user_name));
-  printf("%s\n", json_object_to_json_string(user_status));
+//   connect(sockfd2, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
 
-  puts("");
-  puts("-----------------------------------------------");
+//   //=============================================================
 
-  // close(sock);
+//   //Funcion en desarrollo, obtencion de datos del usuario y servidor al que se va a conectar
 
-  //Separando las partes del Json
-  const char delimiter[] = ",";
-  char * running = strdup(server_reply);
-  char * token;
+//   struct json_object *requestID = json_object_new_object(),
+//   *ipSon = json_object_new_string(ip),
+//   *bufferSon = json_object_new_string(buffer),
+//   *userSon = json_object_new_string(username);
 
-  char * statusString = strsep(&running, delimiter);
-  char * userString = strsep(&running, delimiter);
+//   json_object_object_add(requestID, "host", ipSon);
+//   json_object_object_add(requestID, "origin", bufferSon);
+//   json_object_object_add(requestID, "user", userSon);
+//   //Get my IP
 
-  my.id = json_object_to_json_string(id);
-  my.name = json_object_to_json_string(user_name);
-  my.status = json_object_to_json_string(user_status);
-  sprintf(servInfoIp, ip); 
-  sprintf(servInfoPort, port);
-  // close(sockfd);
-}
+//   puts("asdfasdfasdfasdf");
+//   printf("%s\n", json_object_to_json_string(requestID));
+
+//   const char *reqStr = json_object_to_json_string(requestID);
+
+//   if( write(sockfd2 , reqStr , strlen(reqStr)) < 0)
+//   {
+//       puts("Send failed");
+//   }
+
+//   if( read(sockfd2 , server_reply , 1000) < 0)
+//   {
+//     puts("recv failed");
+//   }
+
+//   //Receive a reply from the server
+
+//   puts("\n-----------------------------------------------\nServer reply :");
+//   puts("");
+
+//   // printf("%s\n", server_reply);
+
+//   struct json_object *status, *userinfo, *replyObj, *id, *user_name, *user_status;
+//   replyObj = json_tokener_parse(server_reply);
+//   json_object_object_get_ex(replyObj, "status", &status);
+//   json_object_object_get_ex(replyObj, "user", &userinfo);
+
+//   printf("%s\n", json_object_to_json_string(status));
+//   printf("%s\n", json_object_to_json_string(userinfo));
+
+//   json_object_object_get_ex(userinfo, "id", &id);
+//   json_object_object_get_ex(userinfo, "name", &user_name);
+//   json_object_object_get_ex(userinfo, "status", &user_status);
+
+//   printf("%s\n", json_object_to_json_string(id));
+//   printf("%s\n", json_object_to_json_string(user_name));
+//   printf("%s\n", json_object_to_json_string(user_status));
+
+
+//   puts("");
+//   puts("-----------------------------------------------");
+
+//   // close(sock);
+
+//   //Separando las partes del Json
+//   const char delimiter[] = ",";
+//   char * running = strdup(server_reply);
+//   char * token;
+
+//   char * statusString = strsep(&running, delimiter);
+//   char * userString = strsep(&running, delimiter);
+
+//   my.id = json_object_to_json_string(id);
+//   my.name = json_object_to_json_string(user_name);
+//   my.status = json_object_to_json_string(user_status);
+//   sprintf(servInfoIp, ip); 
+//   sprintf(servInfoPort, port);
+//   // close(sockfd);
+// }
 
 int main(int argc, char**argv) {
     long port = strtol(argv[2], NULL, 10);
