@@ -602,8 +602,8 @@ void changeStatus(int socket_fd, struct sockaddr_in *address, char status) {
   // json_object_object_add(userStatus, "user", userSon);
   // json_object_object_add(userStatus, "status", statusSon);
   
-  // const char *statusChanged = json_object_to_json_string(userStatus);
-
+  const char *statusChanged = json_object_to_json_string(userStatus);
+  printf("%s", statusChanged); 
 //   //Get my IP
 
 
