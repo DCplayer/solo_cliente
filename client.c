@@ -668,7 +668,7 @@ void create_user_list(){
   json_object_object_get_ex(replyObj, "users", &list);
 
   printf("%s\n", json_object_to_json_string(status));
-  printf("%s\n", json_object_to_json_string(userinfo));
+  printf("%s\n", json_object_to_json_string(list));
 
 
   
