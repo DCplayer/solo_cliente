@@ -589,13 +589,13 @@ void getIP(int socket_fd, struct sockaddr_in *address){
   return; 
 }
 
-void changeStatus(int socket_fd, struct sockaddr_in *address, char status) {
+void changeStatus(int socket_fd, struct sockaddr_in *address, char *status) {
   //==============Creacion del JSON==================
   //Json dentro del cambio de status
   struct json_object *userStatus = json_object_new_object();
   struct json_object *actionSon = json_object_new_string("CHANGED_STATUS"); 
   struct json_object *userSon = json_object_new_string(user_id);
-  // struct json_object *statusSon = json_object_new_string(status);
+  struct json_object *statusSon = json_object_new_string(&status);
 
   // json_object_object_add(userStatus, "action", actionSon);
   // json_object_object_add(userStatus, "user", userSon);
@@ -651,10 +651,10 @@ int main(int argc, char **argv) {
     address.sin_port = htons(port);
     socket_fd = socket(AF_INET, SOCK_STREAM, 0);
 
-    char status_proto = "active"; 
+    char *status_proto = "active"; 
     connect_to_server(socket_fd, &address); 
     getHandshakeJson(socket_fd, &address); 
-    changeStatus(socket_fd, &address, status_proto); 
+    changeStatus(socket_fd, &address, *status_proto); 
 
     // Create data struct for new thread
     thread_data data;
