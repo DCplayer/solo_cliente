@@ -18,9 +18,10 @@ typedef struct {
     int socket;
 } thread_data;
 
-char username;
-char local_IP; 
-char actual_json;  
+static char username;
+static char local_IP; 
+static char actual_json;  
+static char * server_address;
 
 // Connect to server
 void * connect_to_server(int socket_fd, struct sockaddr_in *address) {
@@ -76,13 +77,13 @@ void * receive(void * threadData) {
     }
 }
 
-void getHandshakeJson(int socket_fd, struct sockaddr_in *address, char *host){
+void getHandshakeJson(int socket_fd, struct sockaddr_in *address){
 
 //======================================================= 
   // getIP(socket_fd, &address);
 //=======================================================
   struct json_object *requestID = json_object_new_object(),
-  *ipSon = json_object_new_string("10.0.2.15"),
+  *ipSon = json_object_new_string(server_address),
   *bufferSon = json_object_new_string(host),
   *userSon = json_object_new_string(username);
 
@@ -152,7 +153,6 @@ void getIP(int socket_fd, struct sockaddr_in *address){
 int main(int argc, char**argv) {
     long port = strtol(argv[2], NULL, 10);
     struct sockaddr_in address, cl_addr;
-    char * server_address;
     int socket_fd, response;
     char prompt[USERNAME_BUFFER+4];
     char username[USERNAME_BUFFER];
@@ -178,7 +178,7 @@ int main(int argc, char**argv) {
     socket_fd = socket(AF_INET, SOCK_STREAM, 0);
 
     connect_to_server(socket_fd, &address); 
-    getHandshakeJson(socket_fd, &address, &server_address); 
+    getHandshakeJson(socket_fd, &address); 
 
     // Create data struct for new thread
     thread_data data;
