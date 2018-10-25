@@ -18,7 +18,9 @@ typedef struct {
     int socket;
 } thread_data;
 
-char username; 
+char username;
+char local_IP; 
+char actual_json;  
 
 // Connect to server
 void * connect_to_server(int socket_fd, struct sockaddr_in *address) {
@@ -74,9 +76,9 @@ void * receive(void * threadData) {
     }
 }
 
-char getHandshakeJson(int socket_fd, struct sockaddr_in *address, char *host){
+void getHandshakeJson(int socket_fd, struct sockaddr_in *address, char *host){
   
-  char myip = getIP(socket_fd, &address);
+  getIP(socket_fd, &address);
 
   struct json_object *requestID = json_object_new_object(),
   *ipSon = json_object_new_string(myip),
@@ -91,7 +93,8 @@ char getHandshakeJson(int socket_fd, struct sockaddr_in *address, char *host){
   puts("asdfasdfasdfasdf");
   printf("%s\n", json_object_to_json_string(requestID));
   const char *reqStr = json_object_to_json_string(requestID);
-  return reqStr; 
+  sprintf(actual_json, reqStr);
+  puts("\nMy handshake json is: %s", actual_json);   
 
  
   // // printf("%s\n", server_reply);
@@ -134,13 +137,14 @@ char getHandshakeJson(int socket_fd, struct sockaddr_in *address, char *host){
   // // close(sockfd);
 }
 
-char getIP(int socket_fd, struct sockaddr_in *address){
+void getIP(int socket_fd, struct sockaddr_in *address){
   struct sockaddr_in name;
   socklen_t namelen = sizeof(name);
   socket_fd = getsockname(socket_fd, (struct sockaddr*) &name, &namelen);
   char buffer[100];
   const char* p = inet_ntop(AF_INET, &name.sin_addr, buffer, 100);
-  return p; 
+  sprintf(local_IP, p); 
+  puts("\nMy local ip is: %s", local_IP);  
 }
 
 int main(int argc, char**argv) {
