@@ -197,6 +197,15 @@ void * receive(void * threadData) {
 //   // close(sockfd);
 // }
 
+char getIP(int socket_fd, &address){
+  struct sockaddr_in name;
+  socklen_t namelen = sizeof(name);
+  socket_fd = getsockname(socket_fd, (struct sockaddr*) &name, &namelen);
+  char buffer[100];
+  const char* p = inet_ntop(AF_INET, &name.sin_addr, buffer, 100);
+  return p; 
+}
+
 int main(int argc, char**argv) {
     long port = strtol(argv[2], NULL, 10);
     struct sockaddr_in address, cl_addr;
@@ -226,21 +235,7 @@ int main(int argc, char**argv) {
     socket_fd = socket(AF_INET, SOCK_STREAM, 0);
 
     connect_to_server(socket_fd, &address);
-
-    struct sockaddr_in name;
-    socklen_t namelen = sizeof(name);
-    socket_fd = getsockname(socket_fd, (struct sockaddr*) &name, &namelen);
-    char buffer[100];
-    const char* p = inet_ntop(AF_INET, &name.sin_addr, buffer, 100);
-    if(p != NULL)
-    {
-        printf("Local ip is : %s \n" , buffer);
-    }
-    else
-    {
-        //Some error
-        printf ("Error number : %d . Error message : %s \n" , errno , strerror(errno));
-    }
+    char myip = getIP(socket_fd, &address); 
 
     // Create data struct for new thread
     thread_data data;
