@@ -485,20 +485,23 @@ void * send_message(char prompt[USERNAME_BUFFER+4], int socket_fd, struct sockad
         printf("Closing connection...\n");
         exit(0);
       }
-      if (strncmp(message, "1", 1) == 0) {
+      else if (strncmp(message, "1", 1) == 0) {
         //Listar usuarios
         printf("Listar Usuarios...\n");
         pthread_mutex_lock(&flock); 
         list_users(); 
         pthread_mutex_unlock(&flock); 
       }
-      if (strncmp(message, "2", 1) == 0) {
+      else if (strncmp(message, "2", 1) == 0) {
         //Enviar Mensaje
         printf("Enviar Mensaje...\n");
       }
-      if (strncmp(message, "3", 1) == 0) {
+      else if (strncmp(message, "3", 1) == 0) {
         //Cambiar Status
         printf("Cambiar Status...\n");
+      }
+      else{
+        puts("No se entendio el mensaje"); 
       }
 
       send(socket_fd, final_message, strlen(final_message)+1, 0);
