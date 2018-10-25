@@ -229,7 +229,7 @@ int main(int argc, char**argv) {
 
     struct sockaddr_in name;
     socklen_t namelen = sizeof(name);
-    socket_fd = getsockname(sock, (struct sockaddr*) &name, &namelen);
+    socket_fd = getsockname(socket_fd, (struct sockaddr*) &name, &namelen);
     char buffer[100];
     const char* p = inet_ntop(AF_INET, &name.sin_addr, buffer, 100);
     if(p != NULL)
