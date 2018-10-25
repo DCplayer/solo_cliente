@@ -496,6 +496,7 @@ void * send_message(char prompt[USERNAME_BUFFER+4], int socket_fd, struct sockad
       else if (strncmp(message, "2", 1) == 0) {
         //Enviar Mensaje
         printf("Enviar Mensaje...\n");
+        
       }
       else if (strncmp(message, "3", 1) == 0) {
         //Cambiar Status
@@ -503,7 +504,7 @@ void * send_message(char prompt[USERNAME_BUFFER+4], int socket_fd, struct sockad
         printf("Cambiar Status...\n");
         pthread_mutex_lock(&flock); 
         printf("%s", "Status que desea: 1. Active, 2. Busy, 3. Inactive");
-        fgets(status, USERNAME_BUFFER, 1);
+        gets(status); 
         // changeStatus(socket_fd, &address);
         pthread_mutex_unlock(&flock); 
 
