@@ -595,7 +595,7 @@ void changeStatus(int socket_fd, struct sockaddr_in *address, char status) {
   //Json dentro del cambio de status
   struct json_object *userStatus = json_object_new_object(),
   *actionSon = json_object_new_string("CHANGED_STATUS"),
-  *userSon = json_object_new_string(user_id),
+  *userSon = json_object_new_string(&user_id),
   *statusSon = json_object_new_string(status);
 
   json_object_object_add(userStatus, "action", actionSon);
