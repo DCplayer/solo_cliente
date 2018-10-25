@@ -504,7 +504,7 @@ void * send_message(char prompt[USERNAME_BUFFER+4], int socket_fd, struct sockad
         pthread_mutex_lock(&flock); 
         printf("%s", "Status que desea: 1. Active, 2. Busy, 3. Inactive");
         fgets(status, USERNAME_BUFFER, 1);
-        changeStatus(socket_fd, &address, status);
+        changeStatus(socket_fd, &address);
         pthread_mutex_unlock(&flock); 
 
       }
