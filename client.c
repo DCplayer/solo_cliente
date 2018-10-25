@@ -86,17 +86,17 @@ void getHandshakeJson(int socket_fd, struct sockaddr_in *address){
   *ipSon = json_object_new_string(server_address),
   *bufferSon = json_object_new_string(server_address),
   *userSon = json_object_new_string(username);
+//=======================================================
+  // json_object_object_add(requestID, "host", ipSon);
+  // json_object_object_add(requestID, "origin", bufferSon);
+  // json_object_object_add(requestID, "user", userSon);
+  // //Get my IP
 
-  json_object_object_add(requestID, "host", ipSon);
-  json_object_object_add(requestID, "origin", bufferSon);
-  json_object_object_add(requestID, "user", userSon);
-  //Get my IP
-
-  puts("asdfasdfasdfasdf");
-  printf("%s\n", json_object_to_json_string(requestID));
-  const char *reqStr = json_object_to_json_string(requestID);
-  sprintf(actual_json, reqStr);
-  printf("\nMy handshake json is: %s", actual_json);   
+  // puts("asdfasdfasdfasdf");
+  // printf("%s\n", json_object_to_json_string(requestID));
+  // const char *reqStr = json_object_to_json_string(requestID);
+  // sprintf(actual_json, reqStr);
+  // printf("\nMy handshake json is: %s", actual_json);   
 //=======================================================
  
   // // printf("%s\n", server_reply);
