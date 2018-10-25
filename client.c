@@ -10,7 +10,6 @@
 #include <errno.h>
 #include <json.h>
 
-
 #define MESSAGE_BUFFER 500
 #define USERNAME_BUFFER 10
 
@@ -83,7 +82,10 @@ void getHandshakeJson(int socket_fd, struct sockaddr_in *address){
 //======================================================= 
   // getIP(socket_fd, &address);
 //=======================================================
-  struct json_object *requestID = json_object_new_object(); 
+  struct json_object *requestID = json_object_new_object();
+  struct json_object *ipSon = json_object_new_string("10.0.2.15");
+  struct json_object *bufferSon = json_object_new_string("10.0.2.15");
+  struct json_object *userSon = json_object_new_string(username);
 //=======================================================
   // json_object_object_add(requestID, "host", ipSon);
   // json_object_object_add(requestID, "origin", bufferSon);
