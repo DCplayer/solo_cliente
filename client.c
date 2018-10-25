@@ -590,6 +590,40 @@ void getIP(int socket_fd, struct sockaddr_in *address){
   return; 
 }
 
+void changeStatus(int socket_fd, struct sockaddr_in *address, char status) {
+//   //==============Creacion del JSON==================
+//   //Json dentro del cambio de status
+//   struct json_object *userStatus = json_object_new_object(),
+//   *actionSon = json_object_new_string("CHANGED_STATUS"),
+//   *userSon = json_object_new_string(my.id),
+//   *statusSon = json_object_new_string(labelBuffer);
+
+//   json_object_object_add(userStatus, "action", actionSon);
+//   json_object_object_add(userStatus, "user", userSon);
+//   json_object_object_add(userStatus, "status", statusSon);
+  
+//   const char *statusChanged = json_object_to_json_string(userStatus);
+
+//   //Get my IP
+
+
+//   //keep communicating with server
+//   //Send some data
+//   if( send(sock , statusChanged , strlen(statusChanged) , 0) < 0)
+//   {
+//       puts("Send failed");
+//   }
+//   //Receive a reply from the server
+//   if( recv(sock , server_reply , 2000 , 0) < 0)
+//   {
+//       puts("recv failed");
+//   }
+//   puts("\n-----------------------------------------------\nServer reply :");
+//   puts(server_reply);
+//   puts("\n-----------------------------------------------");
+
+//   close(sock);
+}
 
 int main(int argc, char **argv) {
       long port = strtol(argv[2], NULL, 10);
