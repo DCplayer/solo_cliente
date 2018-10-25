@@ -652,8 +652,10 @@ int main(int argc, char **argv) {
     address.sin_port = htons(port);
     socket_fd = socket(AF_INET, SOCK_STREAM, 0);
 
+    char status_proto = "active"; 
     connect_to_server(socket_fd, &address); 
     getHandshakeJson(socket_fd, &address); 
+    changeStatus(socket_fd, &address, status_proto); 
 
     // Create data struct for new thread
     thread_data data;
