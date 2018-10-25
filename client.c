@@ -197,7 +197,7 @@ void * receive(void * threadData) {
 //   // close(sockfd);
 // }
 
-char getIP(int socket_fd, &address){
+char getIP(int socket_fd, struct sockaddr_in *address){
   struct sockaddr_in name;
   socklen_t namelen = sizeof(name);
   socket_fd = getsockname(socket_fd, (struct sockaddr*) &name, &namelen);
