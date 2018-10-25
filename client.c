@@ -699,7 +699,6 @@ void create_user_list(){
     param1 = json_object_get_string(id); 
     param2 = json_object_get_string(user_name); 
     param3 = json_object_get_string(user_status);
-    user new_user = {.id = param1, .name = param2, .status = param3}; 
   }
   
 }
