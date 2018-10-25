@@ -542,7 +542,7 @@ void getHandshakeJson(GtkWidget *button, gpointer data){
   // printf("%s\n", server_reply);
 
   struct json_object *status, *userinfo, *replyObj, *id, *user_name, *user_status;
-  replyObj = json_tokener_parse(server_reply);
+  replyObj = json_tokener_parse(((ChatClient *)data)->server_reply);
   json_object_object_get_ex(replyObj, "status", &status);
   json_object_object_get_ex(replyObj, "user", &userinfo);
 
@@ -565,7 +565,7 @@ void getHandshakeJson(GtkWidget *button, gpointer data){
 
   //Separando las partes del Json
   const char delimiter[] = ",";
-  char * running = strdup(server_reply);
+  char * running = strdup(((ChatClient *)data)->server_reply);
   char * token;
 
   char * statusString = strsep(&running, delimiter);
