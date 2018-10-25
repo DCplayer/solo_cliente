@@ -488,7 +488,9 @@ void * send_message(char prompt[USERNAME_BUFFER+4], int socket_fd, struct sockad
       if (strncmp(message, "1", 1) == 0) {
         //Listar usuarios
         printf("Listar Usuarios...\n");
+        pthread_mutex_lock(&flock); 
         list_users(); 
+        pthread_mutex_unlock(&flock); 
       }
       if (strncmp(message, "2", 1) == 0) {
         //Enviar Mensaje
@@ -663,8 +665,10 @@ void list_users(int socket_fd, struct sockaddr_in *address) {
     return NULL; 
   }
 
+  pthread_mutex_lock(&unable_socket); 
   sprintf(actual_json, server_reply);
   printf("\nSending: %s", actual_json);
+  pthread_mutex_unlock(&unable_socket);
 
 }
 
