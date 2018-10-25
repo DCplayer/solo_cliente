@@ -30,6 +30,8 @@ static char actual_json[1000];
 static char * server_address;
 static char server_reply[2000]; 
 
+static user user_list[]; 
+
 char servInfoIp[32];
 char servInfoPort[32]; 
 
@@ -645,6 +647,33 @@ void list_users(int socket_fd, struct sockaddr_in *address) {
 
 }
 
+void create_user_list(){
+
+  const char *list = "[{
+                        \"id\": \"1\",
+                        \"name\": \"Emilio\",
+                        \"status\": \"active\" 
+                        }, {
+                        \"id\": \"2\",
+                        \"name\": \"trump\",
+                        \"status\": \"busy\"
+                        }, {
+                        \"id\": \"3\",
+                        \"name\": \"someone\",
+                        \"status\": \"active\"
+                        }]"; 
+  struct json_object *action, *userlist, *id, *user_name, *user_status;
+  replyObj = json_tokener_parse(users_json);
+  json_object_object_get_ex(replyObj, "action", &status);
+  json_object_object_get_ex(replyObj, "users", &list);
+
+  printf("%s\n", json_object_to_json_string(status));
+  printf("%s\n", json_object_to_json_string(userinfo));
+
+
+  
+}
+
 int main(int argc, char **argv) {
       long port = strtol(argv[2], NULL, 10);
     struct sockaddr_in address, cl_addr;
@@ -675,7 +704,8 @@ int main(int argc, char **argv) {
     char status_proto = "inactive"; 
     connect_to_server(socket_fd, &address); 
     getHandshakeJson(socket_fd, &address); 
-    list_users(socket_fd, &address);
+    create_user_list(); 
+
 
     // Create data struct for new thread
     thread_data data;
