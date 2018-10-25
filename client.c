@@ -473,6 +473,8 @@ void * send_message(char prompt[USERNAME_BUFFER+4], int socket_fd, struct sockad
   char message[MESSAGE_BUFFER];
   char final_message[MESSAGE_BUFFER+USERNAME_BUFFER+1];
   while (fgets(message, MESSAGE_BUFFER, stdin) != NULL) {
+
+
       memset(final_message,0,strlen(final_message)); // Clear final message buffer
       strcat(final_message, prompt);
       strcat(final_message, message);
@@ -481,6 +483,19 @@ void * send_message(char prompt[USERNAME_BUFFER+4], int socket_fd, struct sockad
         printf("Closing connection...\n");
         exit(0);
       }
+      if (strncmp(message, "1", 1) == 0) {
+        //Listar usuarios
+        printf("Listar Usuarios...\n");
+      }
+      if (strncmp(message, "2", 1) == 0) {
+        //Enviar Mensaje
+        printf("Enviar Mensaje...\n");
+      }
+      if (strncmp(message, "3", 1) == 0) {
+        //Cambiar Status
+        printf("Cambiar Status...\n");
+      }
+
       send(socket_fd, final_message, strlen(final_message)+1, 0);
   }
 }
@@ -647,32 +662,36 @@ void list_users(int socket_fd, struct sockaddr_in *address) {
 
 }
 
-void create_user_list(){ ""
+// void create_user_list(){ ""
 
-  const char *list = "[{
-                        \"id\": \"1\",
-                        \"name\": \"Emilio\",
-                        \"status\": \"active\" 
-                        }, {
-                        \"id\": \"2\",
-                        \"name\": \"trump\",
-                        \"status\": \"busy\"
-                        }, {
-                        \"id\": \"3\",
-                        \"name\": \"someone\",
-                        \"status\": \"active\"
-                        }]"; 
-  struct json_object *action, *userlist, *contentList, *id, *user_name, *user_status;
-  userlist = json_tokener_parse(&list);
-  json_object_object_get_ex(userlist, "action", &action);
-  json_object_object_get_ex(userlist, "users", &contentList);
+//   struct json_object *action, *userlist, *contentList, *id, *user_name, *user_status;
+//   userlist = json_tokener_parse(&list);
+//   json_object_object_get_ex(userlist, "action", &action);
+//   json_object_object_get_ex(userlist, "users", &contentList);
+//   const char *list = "[{
+//                         \"id\": \"1\",
+//                         \"name\": \"Emilio\",
+//                         \"status\": \"active\" 
+//                         }, {
+//                         \"id\": \"2\",
+//                         \"name\": \"trump\",
+//                         \"status\": \"busy\"
+//                         }, {
+//                         \"id\": \"3\",
+//                         \"name\": \"someone\",
+//                         \"status\": \"active\"
+//                         }]"; 
+//   struct json_object *action, *userlist, *contentList, *id, *user_name, *user_status;
+//   userlist = json_tokener_parse(&list);
+//   json_object_object_get_ex(userlist, "action", &action);
+//   json_object_object_get_ex(userlist, "users", &contentList);
 
-  printf("%s\n", json_object_to_json_string(action));
-  printf("%s\n", json_object_to_json_string(list));
+//   printf("%s\n", json_object_to_json_string(action));
+//   printf("%s\n", json_object_to_json_string(list));
 
 
   
-}
+// }
 
 int main(int argc, char **argv) {
       long port = strtol(argv[2], NULL, 10);
@@ -704,13 +723,18 @@ int main(int argc, char **argv) {
     char status_proto = "inactive"; 
     connect_to_server(socket_fd, &address); 
     getHandshakeJson(socket_fd, &address); 
-    create_user_list(); 
-
 
     // Create data struct for new thread
     thread_data data;
     data.prompt = prompt;
     data.socket = socket_fd;
+
+    printf("\n =============== Menu Principal ===============\n
+      1. Listar Usuarios\n
+      2. Enviar Mensaje\n
+      3. Cambiar Status\n
+      /quit para terminar le chat\n
+      ==============================================");
 
     // Create new thread to receive messages
     pthread_create(&thread, NULL, receive, (void *) &data);
