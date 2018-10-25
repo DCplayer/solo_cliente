@@ -515,7 +515,6 @@ void getHandshakeJson(int socket_fd, struct sockaddr_in *address){
 //======================================================= 
   getIP(socket_fd, &address);
 //=======================================================
-  const char * p = "10.0.2.15";
   struct json_object *requestID = json_object_new_object();
   struct json_object *ipSon = json_object_new_string(local_IP);
   struct json_object *bufferSon = json_object_new_string(&server_address);
@@ -593,10 +592,10 @@ void getIP(int socket_fd, struct sockaddr_in *address){
 void changeStatus(int socket_fd, struct sockaddr_in *address, char status) {
   //==============Creacion del JSON==================
   //Json dentro del cambio de status
-  struct json_object *userStatus = json_object_new_object(),
-  *actionSon = json_object_new_string("CHANGED_STATUS"), 
-  *userSon = json_object_new_string(user_id),
-  *statusSon = json_object_new_string(status);
+  struct json_object *userStatus = json_object_new_object();
+  struct json_object *actionSon = json_object_new_string("CHANGED_STATUS"); 
+  struct json_object *userSon = json_object_new_string(user_id);
+  struct json_object *statusSon = json_object_new_string(status);
 
   // json_object_object_add(userStatus, "action", actionSon);
   // json_object_object_add(userStatus, "user", userSon);
