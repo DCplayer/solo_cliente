@@ -10,6 +10,7 @@
 #include <errno.h>
 #include <json.h>
 
+
 #define MESSAGE_BUFFER 500
 #define USERNAME_BUFFER 10
 
