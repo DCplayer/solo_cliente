@@ -29,6 +29,7 @@ static char local_IP[100];
 static char actual_json[1000];  
 static char * server_address;
 static char server_reply[2000]; 
+static char chating_user_id[100]; 
 
  
 
@@ -487,6 +488,8 @@ void * send_message(char prompt[USERNAME_BUFFER+4], int socket_fd, struct sockad
       if (strncmp(message, "1", 1) == 0) {
         //Listar usuarios
         printf("Listar Usuarios...\n");
+        list_users();
+        sprintf(final_message, actual_json);  
       }
       if (strncmp(message, "2", 1) == 0) {
         //Enviar Mensaje
@@ -660,6 +663,9 @@ void list_users(int socket_fd, struct sockaddr_in *address) {
     puts("Respuesta de status del servidor inentendible");
     return NULL; 
   }
+
+  sprintf(actual_json, server_reply);
+  printf("\nSending: %s", actual_json);
 
 }
 
